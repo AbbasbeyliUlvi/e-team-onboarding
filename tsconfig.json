@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "esnext",
+            "es2018",
+            "esnext.asynciterable"
+        ],
+        "target": "es2020",
+        "module": "commonjs",
+        "outDir": "dist",
+        "rootDir": "src",
+        "strict": true,
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictPropertyInitialization": false,
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            "node"
+        ]
+    },
+    "include": [
+        "src"
+    ]
+}
