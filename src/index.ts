@@ -1,13 +1,14 @@
 
 import 'reflect-metadata';
+import dotenv from 'dotenv';
 import express from "express";
 import Container from "typedi";
 import { Startup } from './startup';
 
 const app = express();
-process.env.GRAPHQL_PATH = '/graphql'
 
-const main = async () => { 
+const main = async () => {
+    dotenv.config();
     const startup: Startup = Container.get(Startup);
 
     await startup.configureServices();
