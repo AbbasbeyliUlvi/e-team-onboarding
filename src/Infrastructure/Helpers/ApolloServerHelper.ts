@@ -8,6 +8,8 @@ import { InjectionNames } from "../Static/InjectionNames";
 import { IApolloServerHelper } from "./Abstract/IApolloServerHelper";
 import { IBlogPostResolver } from "../../Resolvers/Abstract/IBlogPostResolver";
 import { ContainerHelper } from "./ContainerHelper";
+import { IUserResolver } from "../../Resolvers/Abstract/IUserResolver";
+import { ICommonSearchResolver } from "../../Resolvers/Abstract/ICommonSearchResolver";
 
 export class ApolloServerHelper implements IApolloServerHelper {
 
@@ -59,10 +61,14 @@ export class ApolloServerHelper implements IApolloServerHelper {
 
     private async buildSchema() {
         const blogPostResolverConstructor = ContainerHelper.getConstructor<IBlogPostResolver>(InjectionNames.IBlogPostResolver);
+        const userResolverConstructor = ContainerHelper.getConstructor<IUserResolver>(InjectionNames.IUserResolver);
+        const commonSearchResolver = ContainerHelper.getConstructor<ICommonSearchResolver>(InjectionNames.ICommonSearchResolver);
 
         return await buildSchema({
             resolvers: [
-                blogPostResolverConstructor
+                blogPostResolverConstructor,
+                userResolverConstructor,
+                commonSearchResolver,
             ],
             container: Container,
             authMode: "null",

@@ -1,11 +1,17 @@
 import { InputType, Field } from "type-graphql";
+import { UserInput } from "./UserInput";
 
 @InputType()
 export class BlogPostInput {
-    
-    @Field()
+    @Field({ nullable: true })
+    id: number
+
+    @Field({})
     title: String
 
-    @Field()
+    @Field({ nullable: true })
     content: String
+
+    @Field({ simple: false, nullable: true })
+    user: UserInput
 }

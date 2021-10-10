@@ -24,6 +24,8 @@ export class BlogPostResolver implements IBlogPostResolver {
 
     @Mutation(_returns => BlogPost)
     addBlogPost(@Arg("blogPostInput") blogPostInput: BlogPostInput) {
-        return this.blogPostService.addBlogPost(blogPostInput)
+        const reqData = BlogPost.Factory.fromInput(blogPostInput);
+
+        return this.blogPostService.addBlogPost(reqData)
     }
 }
