@@ -1,49 +1,71 @@
 import Container from "typedi";
 import { ApolloServer, gql } from "apollo-server-express";
+import { buildSchema } from "type-graphql";
+import { BaseContext } from "apollo-server-types";
+import { GraphQLRequestContext } from "apollo-server-core";
 
 import { InjectionNames } from "../Static/InjectionNames";
-import { IBlogPostService } from "../../Services/Abstract/IBlogPostService";
 import { IApolloServerHelper } from "./Abstract/IApolloServerHelper";
-import { BlogPost } from "../../Model/BlogPost";
-
-const typeDefs = gql`  
-    type BlogPost {
-        title: String
-        content: String
-    }
-
-    type Query {
-        getAllBlogs: [BlogPost]
-    }
-
-    type Mutation {
-        addBlogPost(title: String!, content: String!): BlogPost
-    }
-`;
+import { IBlogPostResolver } from "../../Resolvers/Abstract/IBlogPostResolver";
+import { ContainerHelper } from "./ContainerHelper";
 
 export class ApolloServerHelper implements IApolloServerHelper {
-    private readonly simpleService: IBlogPostService;
 
     constructor() {
-        this.simpleService = Container.get<IBlogPostService>(InjectionNames.IBlogPostService)
     }
 
+    private server: ApolloServer<{}>;
+    private readonly destroyContextOnRequestFinishPlugin = {
+        requestDidStart: async () => ({
+            async willSendResponse(requestContext: GraphQLRequestContext<BaseContext>) {
+                Container.reset(requestContext.context.requestId);
+            },
+        }),
+    };
+
     async getServer() {
+        if (!this.server) {
+            this.server = await this.buildServer();
+        }
+
+        return this.server;
+    }
+
+    private async buildServer() {
+        const schema = await this.buildSchema();
+        const context = this.prepareContext();
+
         const server = new ApolloServer({
-            typeDefs,
-
-            resolvers: {
-                Query: {
-                    getAllBlogs: this.simpleService.getAllBlogs,
-                },
-                Mutation: {
-                    addBlogPost: (_, post: BlogPost) => this.simpleService.addBlogPost(post)
-                }
-            }
-
+            schema,
+            context: context,
+            plugins: [
+                this.destroyContextOnRequestFinishPlugin
+            ],
         });
         return server;
     }
 
+    private prepareContext() {
+        return ({ }) => {
+            const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString();
+            const container = Container.of(requestId);
+            const context = { requestId, container };
 
+            container.set("context", context);
+
+            return context;
+        };
+    }
+
+    private async buildSchema() {
+        const blogPostResolverConstructor = ContainerHelper.getConstructor<IBlogPostResolver>(InjectionNames.IBlogPostResolver);
+
+        return await buildSchema({
+            resolvers: [
+                blogPostResolverConstructor
+            ],
+            container: Container,
+            authMode: "null",
+        });
+    }
 }

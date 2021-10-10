@@ -5,6 +5,10 @@ import { InjectionNames } from "./Infrastructure/Static/InjectionNames";
 import { ApolloServerHelper } from "./Infrastructure/Helpers/ApolloServerHelper";
 import { IApolloServerHelper } from "./Infrastructure/Helpers/Abstract/IApolloServerHelper";
 import { BlogPostService } from "./Services/BlogPostService";
+import { BlogPostResolver } from "./Resolvers/BlogPostResolver";
+import { ContainerHelper } from "./Infrastructure/Helpers/ContainerHelper";
+import { IBlogPostService } from "./Services/Abstract/IBlogPostService";
+import { IBlogPostResolver } from "./Resolvers/Abstract/IBlogPostResolver";
 
 @Service()
 export class Startup {
@@ -12,8 +16,11 @@ export class Startup {
     }
 
     async configureServices() {
-        Container.set({ id: InjectionNames.IApolloServerHelper, type: ApolloServerHelper });
-        Container.set({ id: InjectionNames.IBlogPostService, type: BlogPostService });
+        ContainerHelper
+            .set<IApolloServerHelper>(InjectionNames.IApolloServerHelper, ApolloServerHelper)
+            .set<IBlogPostService>(InjectionNames.IBlogPostService, BlogPostService)
+            .set<IBlogPostResolver>(InjectionNames.IBlogPostResolver, BlogPostResolver)
+
     }
 
     async configure(app: Express) {
@@ -24,6 +31,5 @@ export class Startup {
 
         await server.start();
         server.applyMiddleware({ app, path: graphqlPath });
-
     }
 }
