@@ -1,5 +1,5 @@
 import { CommonSearchResult } from "../../Model/Inputs/CommonSearchResult";
 
 export interface ICommonSearchResolver {
-    search(searchText: string): Array<typeof CommonSearchResult>
+    search(searchText: string): Promise<Array<typeof CommonSearchResult>>
 }

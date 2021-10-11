@@ -1,3 +1,4 @@
+import { validateOrReject } from "class-validator";
 import { ContainerHelper } from "../Infrastructure/Helpers/ContainerHelper";
 import { InjectionNames } from "../Infrastructure/Static/InjectionNames";
 import { BlogPost } from "../Model/BlogPost";
@@ -13,15 +14,21 @@ export class BlogPostService implements IBlogPostService {
         this.userService = ContainerHelper.get<IUserService>(InjectionNames.IUserResolver);
     }
 
-    getAllBlogs() {
+    async getAllBlogs() {
         return data
     }
 
-    addBlogPost(post: BlogPost) {
-        const author = post.author && this.userService.addUser(post.author)
+    async addBlogPost(post: BlogPost) {
+        const errors = await validateOrReject(post);
 
         post.id = data.length + 1;
-        post.author = author;
+
+        if (post.author) {
+            const author = await this.userService.addUser(post.author)
+            await validateOrReject(author);
+
+            post.author = author;
+        }
 
         data.push(post);
 

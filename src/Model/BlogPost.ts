@@ -1,4 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
+import { Length } from "class-validator";
+
 import { BlogPostFactory } from "./Factories/BlogPostFactory";
 import { User } from "./User";
 
@@ -7,7 +9,8 @@ export class BlogPost {
     @Field()
     id: number
 
-    @Field({})
+    @Length(3, 30)
+    @Field({ nullable: false })
     title: String
 
     @Field({ nullable: true })

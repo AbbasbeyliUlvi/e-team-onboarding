@@ -18,7 +18,7 @@ export class CommonSearchResolver implements ICommonSearchResolver {
     }
 
     @Query(_returns => [(CommonSearchResult)])
-    search(@Arg("searchText") searchText: string): (typeof CommonSearchResult)[] {
+    async search(@Arg("searchText") searchText: string) {
         return this.commonSearchService.search(searchText);
     }
 

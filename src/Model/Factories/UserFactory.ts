@@ -1,4 +1,5 @@
 import { UserInputError } from "apollo-server-errors";
+import { validate } from "class-validator";
 import { UserInput } from "../Inputs/UserInput";
 import { User } from "../User";
 
@@ -8,13 +9,13 @@ export class UserFactory {
         if (!input) {
             throw new UserInputError("input must be set");
         }
+        validate(input);
+        const result: User = new User();
+        result.id = input.id;
+        result.email = input.email;
+        result.firstName = input.firstName;
+        result.lastName = input.lastName;
 
-        const result: User = {
-            id: input.id,
-            email: input.email,
-            firstName: input.firstName,
-            lastName: input.lastName,
-        };
         return result;
     }
 }

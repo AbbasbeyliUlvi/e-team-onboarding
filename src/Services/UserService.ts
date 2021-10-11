@@ -5,11 +5,11 @@ const data: User[] = [];
 
 export class UserService implements IUserService {
 
-    getAllUsers() {
+    async getAllUsers() {
         return data
     }
 
-    addUser(item: User) {
+    async addUser(item: User) {
         item.id = data.length + 1;
         data.push(item);
 

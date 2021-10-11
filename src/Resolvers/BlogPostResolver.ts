@@ -18,12 +18,12 @@ export class BlogPostResolver implements IBlogPostResolver {
     }
 
     @Query(_returns => [BlogPost])
-    getAllBlogs(@Info() _info: GraphQLResolveInfo) {
+    async getAllBlogs(@Info() _info: GraphQLResolveInfo) {
         return this.blogPostService.getAllBlogs();
     }
 
     @Mutation(_returns => BlogPost)
-    addBlogPost(@Arg("blogPostInput") blogPostInput: BlogPostInput) {
+    async addBlogPost(@Arg("blogPostInput") blogPostInput: BlogPostInput) {
         const reqData = BlogPost.Factory.fromInput(blogPostInput);
 
         return this.blogPostService.addBlogPost(reqData)

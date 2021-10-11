@@ -9,13 +9,13 @@ export class BlogPostFactory {
         if (!input) {
             throw new UserInputError("input must be set");
         }
-        
-        const result: BlogPost = {
-            title: input.title,
-            content: input.content,
-            id: input.id,
-            author: input.user && User.Factory.fromInput(input.user)
-        };
+
+        const result: BlogPost = new BlogPost();
+        result.id = input.id;
+        result.title = input.title;
+        result.content = input.content;
+        result.author = input.user && User.Factory.fromInput(input.user);
+
         return result;
     }
 }

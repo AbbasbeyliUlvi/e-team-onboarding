@@ -18,12 +18,12 @@ export class UserResolver implements IUserResolver {
     }
 
     @Query(_returns => [User])
-    getAllUsers(@Info() _info: GraphQLResolveInfo) {
+    async getAllUsers(@Info() _info: GraphQLResolveInfo) {
         return this.UserService.getAllUsers();
     }
 
     @Mutation(_returns => User)
-    addUser(@Arg("UserInput") UserInput: UserInput) {
+    async addUser(@Arg("UserInput") UserInput: UserInput) {
         const reqData = User.Factory.fromInput(UserInput);
 
         return this.UserService.addUser(reqData)

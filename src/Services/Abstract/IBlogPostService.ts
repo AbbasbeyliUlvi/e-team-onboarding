@@ -2,6 +2,6 @@ import { BlogPost } from "../../Model/BlogPost";
 
 
 export interface IBlogPostService {
-    getAllBlogs(): BlogPost[]
-    addBlogPost(post:BlogPost): BlogPost
+    getAllBlogs(): Promise<BlogPost[]>
+    addBlogPost(post: BlogPost): Promise<BlogPost>
 }

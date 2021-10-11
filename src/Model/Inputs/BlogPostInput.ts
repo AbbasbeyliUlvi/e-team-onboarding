@@ -1,4 +1,5 @@
 import { InputType, Field } from "type-graphql";
+import { Length } from "class-validator";
 import { UserInput } from "./UserInput";
 
 @InputType()
@@ -6,7 +7,8 @@ export class BlogPostInput {
     @Field({ nullable: true })
     id: number
 
-    @Field({})
+    @Length(3, 30)
+    @Field({ nullable: false })
     title: String
 
     @Field({ nullable: true })
