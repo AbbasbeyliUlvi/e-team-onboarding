@@ -1,3 +1,5 @@
+import { validateOrReject } from "class-validator";
+
 import { User } from "../Model/User";
 import { IUserService } from "./Abstract/IUserService";
 
@@ -10,6 +12,8 @@ export class UserService implements IUserService {
     }
 
     async addUser(item: User) {
+        await validateOrReject(item);
+
         item.id = data.length + 1;
         data.push(item);
 

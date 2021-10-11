@@ -19,15 +19,12 @@ export class BlogPostService implements IBlogPostService {
     }
 
     async addBlogPost(post: BlogPost) {
-        const errors = await validateOrReject(post);
+        await validateOrReject(post);
 
         post.id = data.length + 1;
 
         if (post.author) {
-            const author = await this.userService.addUser(post.author)
-            await validateOrReject(author);
-
-            post.author = author;
+            post.author = await this.userService.addUser(post.author);
         }
 
         data.push(post);
