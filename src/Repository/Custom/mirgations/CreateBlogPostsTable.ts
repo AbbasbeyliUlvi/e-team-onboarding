@@ -17,7 +17,7 @@ export class CreateBlogPostsTable {
   }
 
   public async down(): Promise<void> {
-    PgClient.executeQuery(`DROP TABLE BLOG_POSTS`, [], async (_) => {
+    PgClient.executeQuery(`DROP TABLE  IF EXISTS BLOG_POSTS`, [], async (_) => {
       console.log("TABLE BLOG_POSTS DROPPED!")
     })
   }

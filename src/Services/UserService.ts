@@ -15,7 +15,9 @@ export class UserService implements IUserService {
         this.userRepository = ContainerHelper.get<IUserRepository>(InjectionNames.IUserRepository);
     }
     async getAllUsers() {
-        return data
+        const result = await this.userRepository.find();
+
+        return result;
     }
 
     async addUser(item: User) {

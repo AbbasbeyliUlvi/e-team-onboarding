@@ -19,7 +19,9 @@ export class BlogPostService implements IBlogPostService {
     }
 
     async getAllBlogs() {
-        return data
+        const result = await this.blogPostRepository.find();
+
+        return result;
     }
 
     async addBlogPost(post: BlogPost) {

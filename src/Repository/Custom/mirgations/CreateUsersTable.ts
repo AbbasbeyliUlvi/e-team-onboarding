@@ -18,7 +18,7 @@ export class CreateUsersTable {
   }
 
   public async down(): Promise<void> {
-    PgClient.executeQuery(`DROP TABLE USERS`, [], async (_) => {
+    PgClient.executeQuery(`DROP TABLE  IF EXISTS USERS`, [], async (_) => {
       console.log("TABLE USERS DROPPED!")
     })
   }
