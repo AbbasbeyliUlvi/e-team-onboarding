@@ -2,7 +2,7 @@ import { GraphQLResolveInfo } from "graphql";
 import { Arg, Info, Mutation, Query, Resolver } from "type-graphql";
 import Container, { Service } from "typedi";
 
-import { User } from "../Model/User";
+import { User } from "../Model/Entity/User";
 import { UserInput } from "../Model/Inputs/UserInput";
 import { InjectionNames } from "../Infrastructure/Static/InjectionNames";
 import { IUserService } from "../Services/Abstract/IUserService";

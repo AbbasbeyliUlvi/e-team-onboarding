@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { User } from "../../Model/User";
+import { User } from "../../Model/Entity/User";
 import { UserInput } from "../../Model/Inputs/UserInput";
 
 export interface IUserResolver {

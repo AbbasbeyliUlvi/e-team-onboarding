@@ -1,7 +1,7 @@
 import { UserInputError } from "apollo-server-errors";
 import { validate } from "class-validator";
 import { UserInput } from "../Inputs/UserInput";
-import { User } from "../User";
+import { User } from "../Entity/User";
 
 export class UserFactory {
 

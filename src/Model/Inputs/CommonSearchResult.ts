@@ -1,6 +1,6 @@
 import { createUnionType } from "type-graphql";
-import { BlogPost } from "../BlogPost";
-import { User } from "../User";
+import { BlogPost } from "../Entity/BlogPost";
+import { User } from "../Entity/User";
 
 export const CommonSearchResult = createUnionType({
   name: "CommonSearchResult",

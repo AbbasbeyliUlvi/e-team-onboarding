@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { BlogPost } from "../../Model/BlogPost";
+import { BlogPost } from "../../Model/Entity/BlogPost";
 import { BlogPostInput } from "../../Model/Inputs/BlogPostInput";
 
 export interface IBlogPostResolver {

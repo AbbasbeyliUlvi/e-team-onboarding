@@ -1,5 +1,5 @@
 import { QueryResult } from "pg";
-import { BlogPost } from "../../Model/BlogPost";
+import { BlogPost } from "../../Model/Entity/BlogPost";
 import { IBlogPostRepository } from "../Abstract/IBlogPostRepository";
 import { CustomBaseRepository } from "./Abstract/CustomBaseRepository";
 import { PgClient } from "./Client";

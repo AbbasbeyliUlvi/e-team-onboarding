@@ -23,6 +23,8 @@ import { CustomBlogPostRepository } from "./Repository/Custom/CustomBlogPostRepo
 import { IBlogPostRepository } from "./Repository/Abstract/IBlogPostRepository";
 import { CreateBlogPostsTable } from "./Repository/Custom/mirgations/CreateBlogPostsTable";
 import { CreateUsersTable } from "./Repository/Custom/mirgations/CreateUsersTable";
+import { TypeORMBlogPostRepository } from "./Repository/TypeORM/TypeORMBlogPostRepository";
+import { TypeORMUserRepository } from "./Repository/TypeORM/TypeORMUserRepository";
 
 @Service()
 export class Startup {
@@ -38,18 +40,18 @@ export class Startup {
             .set<IUserResolver>(InjectionNames.IUserResolver, UserResolver)
             .set<ICommonSearchService>(InjectionNames.ICommonSearchService, CommonSearchService)
             .set<ICommonSearchResolver>(InjectionNames.ICommonSearchResolver, CommonSearchResolver)
-            .set<IUserRepository>(InjectionNames.IUserRepository, CustomUserRepository)
-            .set<IBlogPostRepository>(InjectionNames.IBlogPostRepository, CustomBlogPostRepository)
+            .set<IUserRepository>(InjectionNames.IUserRepository, TypeORMUserRepository)
+            .set<IBlogPostRepository>(InjectionNames.IBlogPostRepository, TypeORMBlogPostRepository)
 
     }
 
     async configure(app: Express) {
-        await new CreateBlogPostsTable().down()
-        await new CreateUsersTable().down()
-        setTimeout(async () => {
-            await new CreateBlogPostsTable().up()
-            await new CreateUsersTable().up()
-        }, 1000);
+        // await new CreateBlogPostsTable().down()
+        // await new CreateUsersTable().down()
+        // setTimeout(async () => {
+        //     await new CreateBlogPostsTable().up()
+        //     await new CreateUsersTable().up()
+        // }, 1000);
         const apolloServerHelper = Container.get<IApolloServerHelper>(InjectionNames.IApolloServerHelper)
 
         const server = await apolloServerHelper.getServer();

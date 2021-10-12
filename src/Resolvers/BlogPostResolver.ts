@@ -2,7 +2,7 @@ import { GraphQLResolveInfo } from "graphql";
 import { Arg, Info, Mutation, Query, Resolver } from "type-graphql";
 import Container, { Service } from "typedi";
 
-import { BlogPost } from "../Model/BlogPost";
+import { BlogPost } from "../Model/Entity/BlogPost";
 import { BlogPostInput } from "../Model/Inputs/BlogPostInput";
 import { IBlogPostResolver } from "./Abstract/IBlogPostResolver";
 import { InjectionNames } from "../Infrastructure/Static/InjectionNames";

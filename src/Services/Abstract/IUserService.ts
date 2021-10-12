@@ -1,4 +1,4 @@
-import { User } from "../../Model/User";
+import { User } from "../../Model/Entity/User";
 
 
 export interface IUserService {

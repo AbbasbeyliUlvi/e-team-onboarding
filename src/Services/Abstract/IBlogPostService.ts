@@ -1,4 +1,4 @@
-import { BlogPost } from "../../Model/BlogPost";
+import { BlogPost } from "../../Model/Entity/BlogPost";
 
 
 export interface IBlogPostService {

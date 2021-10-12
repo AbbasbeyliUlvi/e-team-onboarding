@@ -2,7 +2,7 @@ import { validateOrReject } from "class-validator";
 import { ContainerHelper } from "../Infrastructure/Helpers/ContainerHelper";
 import { InjectionNames } from "../Infrastructure/Static/InjectionNames";
 
-import { User } from "../Model/User";
+import { User } from "../Model/Entity/User";
 import { IUserRepository } from "../Repository/Abstract/IUserRepository";
 import { IUserService } from "./Abstract/IUserService";
 

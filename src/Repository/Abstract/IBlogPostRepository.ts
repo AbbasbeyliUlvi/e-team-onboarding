@@ -1,4 +1,4 @@
-import { BlogPost } from "../../Model/BlogPost";
+import { BlogPost } from "../../Model/Entity/BlogPost";
 import { IBaseRepository } from "./IBaseRepository";
 
 

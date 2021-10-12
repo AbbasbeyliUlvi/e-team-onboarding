@@ -1,6 +1,6 @@
 import { BlogPostInput } from "../Inputs/BlogPostInput";
-import { User } from "../User";
-import { BlogPost } from "../BlogPost";
+import { User } from "../Entity/User";
+import { BlogPost } from "../Entity/BlogPost";
 import { UserInputError } from "apollo-server-errors";
 
 export class BlogPostFactory {

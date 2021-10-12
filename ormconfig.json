@@ -1,0 +1,16 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "changeme",
+    "database": "mydb",
+    "synchronize": true,
+    "logging": true,
+    "entities": [
+        "dist/Model/Entity/**/*.js"
+    ],
+    "migrations": [
+        "dist/Repository/TypeORM/Migrations/**/*.js"
+    ]
+}

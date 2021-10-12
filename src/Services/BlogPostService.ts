@@ -1,7 +1,7 @@
 import { validateOrReject } from "class-validator";
 import { ContainerHelper } from "../Infrastructure/Helpers/ContainerHelper";
 import { InjectionNames } from "../Infrastructure/Static/InjectionNames";
-import { BlogPost } from "../Model/BlogPost";
+import { BlogPost } from "../Model/Entity/BlogPost";
 import { IBlogPostRepository } from "../Repository/Abstract/IBlogPostRepository";
 import { IUserRepository } from "../Repository/Abstract/IUserRepository";
 import { IBlogPostService } from "./Abstract/IBlogPostService";
@@ -19,7 +19,7 @@ export class BlogPostService implements IBlogPostService {
     }
 
     async getAllBlogs() {
-        const result = await this.blogPostRepository.find();
+        const result = await this.blogPostRepository.find({ relations: ["user"] });
 
         return result;
     }
