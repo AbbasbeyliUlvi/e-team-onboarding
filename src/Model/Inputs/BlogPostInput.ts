@@ -9,10 +9,10 @@ export class BlogPostInput {
 
     @Length(3, 30)
     @Field({ nullable: false })
-    title: String
+    title: string
 
     @Field({ nullable: true })
-    content: String
+    content: string
 
     @Field({ simple: false, nullable: true })
     user: UserInput

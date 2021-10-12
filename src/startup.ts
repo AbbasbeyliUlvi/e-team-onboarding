@@ -17,6 +17,12 @@ import { ICommonSearchResolver } from "./Resolvers/Abstract/ICommonSearchResolve
 import { CommonSearchResolver } from "./Resolvers/CommonSearchResolver";
 import { CommonSearchService } from "./Services/CommonSearchService";
 import { ICommonSearchService } from "./Services/Abstract/ICommonSearchService";
+import { IUserRepository } from "./Repository/Abstract/IUserRepository";
+import { CustomUserRepository } from "./Repository/Custom/CustomUserRepository";
+import { CustomBlogPostRepository } from "./Repository/Custom/CustomBlogPostRepository";
+import { IBlogPostRepository } from "./Repository/Abstract/IBlogPostRepository";
+import { CreateBlogPostsTable } from "./Repository/Custom/mirgations/CreateBlogPostsTable";
+import { CreateUsersTable } from "./Repository/Custom/mirgations/CreateUsersTable";
 
 @Service()
 export class Startup {
@@ -32,10 +38,18 @@ export class Startup {
             .set<IUserResolver>(InjectionNames.IUserResolver, UserResolver)
             .set<ICommonSearchService>(InjectionNames.ICommonSearchService, CommonSearchService)
             .set<ICommonSearchResolver>(InjectionNames.ICommonSearchResolver, CommonSearchResolver)
+            .set<IUserRepository>(InjectionNames.IUserRepository, CustomUserRepository)
+            .set<IBlogPostRepository>(InjectionNames.IBlogPostRepository, CustomBlogPostRepository)
 
     }
 
     async configure(app: Express) {
+        await new CreateBlogPostsTable().down()
+        await new CreateUsersTable().down()
+        setTimeout(async () => {
+            await new CreateBlogPostsTable().up()
+            await new CreateUsersTable().up()
+        }, 1000);
         const apolloServerHelper = Container.get<IApolloServerHelper>(InjectionNames.IApolloServerHelper)
 
         const server = await apolloServerHelper.getServer();

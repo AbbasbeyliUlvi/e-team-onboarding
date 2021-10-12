@@ -17,5 +17,5 @@ export class UserFactory {
         result.lastName = input.lastName;
 
         return result;
-    }
+    } 
 }

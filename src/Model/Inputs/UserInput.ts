@@ -9,12 +9,12 @@ export class UserInput {
     @Length(3)
     @IsEmail()
     @Field({ nullable: false })
-    email: String
+    email: string
 
     @Length(3)
     @Field({ nullable: true })
-    firstName: String
+    firstName: string
 
     @Field({ nullable: true })
-    lastName: String
+    lastName: string
 }

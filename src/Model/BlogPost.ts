@@ -10,14 +10,14 @@ export class BlogPost {
     id: number
 
     @Length(3, 30)
-    @Field({ nullable: false })
-    title: String
+    @Field({ nullable: true })
+    title: string
 
     @Field({ nullable: true })
-    content: String
+    content: string
 
     @Field({ simple: true, nullable: true })
-    author?: User
+    user?: User
 
     static Factory = BlogPostFactory;
 }

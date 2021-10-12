@@ -14,8 +14,12 @@ export class BlogPostFactory {
         result.id = input.id;
         result.title = input.title;
         result.content = input.content;
-        result.author = input.user && User.Factory.fromInput(input.user);
+        result.user = input.user && User.Factory.fromInput(input.user);
 
         return result;
+    } 
+
+    public static getSelectQuery(...columns: ('id' | 'title' | 'content')[]) {
+        return `select ${columns.join(', ')} from BlogPost;`
     }
 }

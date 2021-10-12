@@ -10,15 +10,15 @@ export class User {
 
     @Length(3)
     @IsEmail()
-    @Field({ nullable: false })
-    email: String
+    @Field({ nullable: true })
+    email: string
 
     @Length(3)
     @Field({ nullable: true })
-    firstName: String
+    firstName: string
 
     @Field({ nullable: true })
-    lastName: String
+    lastName: string
 
     static Factory = UserFactory;
 }

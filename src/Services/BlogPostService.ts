@@ -2,6 +2,8 @@ import { validateOrReject } from "class-validator";
 import { ContainerHelper } from "../Infrastructure/Helpers/ContainerHelper";
 import { InjectionNames } from "../Infrastructure/Static/InjectionNames";
 import { BlogPost } from "../Model/BlogPost";
+import { IBlogPostRepository } from "../Repository/Abstract/IBlogPostRepository";
+import { IUserRepository } from "../Repository/Abstract/IUserRepository";
 import { IBlogPostService } from "./Abstract/IBlogPostService";
 import { IUserService } from "./Abstract/IUserService";
 
@@ -9,9 +11,11 @@ const data: BlogPost[] = [];
 
 export class BlogPostService implements IBlogPostService {
     private readonly userService: IUserService;
+    private readonly blogPostRepository: IBlogPostRepository;
 
     constructor() {
         this.userService = ContainerHelper.get<IUserService>(InjectionNames.IUserResolver);
+        this.blogPostRepository = ContainerHelper.get<IBlogPostRepository>(InjectionNames.IBlogPostRepository);
     }
 
     async getAllBlogs() {
@@ -21,14 +25,12 @@ export class BlogPostService implements IBlogPostService {
     async addBlogPost(post: BlogPost) {
         await validateOrReject(post);
 
-        post.id = data.length + 1;
-
-        if (post.author) {
-            post.author = await this.userService.addUser(post.author);
+        if (post.user) {
+            post.user = await this.userService.addUser(post.user);
         }
 
-        data.push(post);
+        const result = await this.blogPostRepository.save(post);
 
-        return post;
+        return result;
     }
 }

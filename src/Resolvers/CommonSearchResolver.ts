@@ -5,8 +5,6 @@ import { InjectionNames } from "../Infrastructure/Static/InjectionNames";
 import { ICommonSearchResolver } from "./Abstract/ICommonSearchResolver";
 import { ICommonSearchService } from "../Services/Abstract/ICommonSearchService";
 import { CommonSearchResult } from "../Model/Inputs/CommonSearchResult";
-import { User } from "../Model/User";
-import { BlogPost } from "../Model/BlogPost";
 
 @Service()
 @Resolver()

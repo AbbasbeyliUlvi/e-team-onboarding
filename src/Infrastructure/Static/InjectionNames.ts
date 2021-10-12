@@ -7,4 +7,6 @@ export const InjectionNames = {
     IUserResolver: "UserResolver",
     ICommonSearchService: "CommonSearchService",
     ICommonSearchResolver: "CommonSearchResolver",
+    IUserRepository: "UserRepository",
+    IBlogPostRepository: "BlogPostRepository",
 }
